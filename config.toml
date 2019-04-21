@@ -8,3 +8,32 @@ pygmentsCodeFences = true
 	grpc_release_tag_no_v = "1.20.0"
 	grpc_java_release_tag = "v1.20.0"
 	milestones_link = "https://github.com/grpc/grpc/milestones"
+
+[menu]
+[[menu.dropdown]]
+name = "Overview"
+url = "/docs"
+
+[[menu.dropdown]]
+name = "Quick Start"
+url = "/docs/quickstart"
+
+[[menu.dropdown]]
+name = "Guides"
+url = "/docs/guides"
+
+[[menu.dropdown]]
+name = "Tutorials"
+url = "/docs/tutorials"
+
+[[menu.dropdown]]
+name = "Reference"
+url = "/docs/reference"
+
+[[menu.dropdown]]
+name = "Samples"
+url = "/docs/samples"
+
+[[menu.dropdown]]
+name = "Presentations"
+url = "/docs/talks"
