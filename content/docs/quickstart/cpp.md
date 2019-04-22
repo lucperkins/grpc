@@ -10,8 +10,6 @@ working example.</p>
 
 ### Before you begin
 
-#### Prerequisites
-
 #### Install gRPC
 
 To install gRPC on your system, follow the [instructions to install gRPC C++ via make](https://github.com/grpc/grpc/blob/master/src/cpp/README.md#make).

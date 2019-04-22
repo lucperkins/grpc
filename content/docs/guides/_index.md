@@ -12,14 +12,14 @@ see our [Quick Starts](../quickstart).
 
 <div id="toc" class="toc mobile-toc"></div>
 
-## Overview
+### Overview
 In gRPC a client application can directly call methods on a server application on a different machine as if it was a local object, making it easier for you to create distributed applications and services. As in many RPC systems, gRPC is based around the idea of defining a service, specifying the methods that can be called remotely with their parameters and return types. On the server side, the server implements this interface and runs a gRPC server to handle client calls. On the client side, the client has a stub (referred to as just a client in some languages) that provides the same methods as the server.
 
 ![Concept Diagram](../../img/landing-2.svg)
 
 gRPC clients and servers can run and talk to each other in a variety of environments - from servers inside Google to your own desktop - and can be written in any of gRPC's supported languages. So, for example, you can easily create a gRPC server in Java with clients in Go, Python, or Ruby. In addition, the latest Google APIs will have gRPC versions of their interfaces, letting you easily build Google functionality into your applications.
 
-## Working with Protocol Buffers
+### Working with Protocol Buffers
 By default gRPC uses [protocol buffers](https://developers.google.com/protocol-buffers/docs/overview), Google’s
 mature open source mechanism for serializing structured data (although it
 can be used with other data formats such as JSON). Here's a quick intro to how
@@ -84,7 +84,7 @@ and find out how to get and install `protoc` with gRPC plugins in your chosen
 language's Quickstart.
 
 
-### Protocol buffer versions
+#### Protocol buffer versions
 While protocol buffers have been available for open source users for some
 time, our examples use a new flavor of protocol buffers called proto3, which
 has a slightly simplified syntax, some useful new features, and supports

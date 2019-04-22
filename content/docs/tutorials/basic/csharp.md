@@ -21,7 +21,7 @@ language: you can find out more in the
 
 <div id="toc"></div>
 
-## Why use gRPC?
+### Why use gRPC?
 
 Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -36,7 +36,7 @@ handled for you by gRPC. We also get all the advantages of working with protocol
 buffers, including efficient serialization, a simple IDL, and easy interface
 updating.
 
-## Example code and setup
+### Example code and setup
 
 The example code for our tutorial is in
 [grpc/grpc/examples/csharp/RouteGuide](https://github.com/grpc/grpc/tree/
@@ -56,7 +56,7 @@ For additional installation details, see the [How to use
 instructions](https://github.com/grpc/grpc/tree/
 {{< param grpc_release_tag >}}/src/csharp#how-to-use).
 
-## Defining the service
+### Defining the service
 
 Our first step (as you'll know from the [Overview](/docs/)) is to
 define the gRPC *service* and the method *request* and *response* types using
@@ -142,7 +142,7 @@ message Point {
 }
 ```
 
-## Generating client and server code
+### Generating client and server code
 
 Next we need to generate the gRPC client and server interfaces from our .proto
 service definition. This can be done by invoking the protocol buffer compiler `protoc` with
@@ -172,7 +172,7 @@ under the `RouteGuide/obj/Debug/TARGET_FRAMEWORK` directory:
 
 <a name="server"></a>
 
-## Creating the server
+### Creating the server
 
 First let's look at how we create a `RouteGuide` server. If you're only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -191,7 +191,7 @@ You can find our example `RouteGuide` server in
 {{< param grpc_release_tag >}}/examples/csharp/RouteGuide/RouteGuideServer/RouteGuideImpl.cs).
 Let's take a closer look at how it works.
 
-### Implementing RouteGuide
+#### Implementing RouteGuide
 
 As you can see, our server has a `RouteGuideImpl` class that inherits from the
 generated `RouteGuide.RouteGuideBase`:
@@ -201,7 +201,7 @@ generated `RouteGuide.RouteGuideBase`:
 public class RouteGuideImpl : RouteGuide.RouteGuideBase
 ```
 
-#### Simple RPC
+##### Simple RPC
 
 `RouteGuideImpl` implements all our service methods. Let's look at the simplest
 type first, `GetFeature`, which just gets a `Point` from the client and returns
@@ -222,7 +222,7 @@ method returns `Task<Feature>` rather than just `Feature`. You are free to
 perform your computations synchronously and return the result once you've
 finished, just as we do in the example.
 
-#### Server-side streaming RPC
+##### Server-side streaming RPC
 
 Now let's look at something a bit more complicated - a streaming RPC.
 `ListFeatures` is a server-side streaming RPC, so we need to send back multiple
@@ -247,7 +247,7 @@ wants to find `Feature`s, but instead of returning a simple response we need to
 write responses to an asynchronous stream `IServerStreamWriter` using async
 method `WriteAsync`.
 
-#### Client-side streaming RPC
+##### Client-side streaming RPC
 
 Similarly, the client-side streaming method `RecordRoute` uses an
 [IAsyncEnumerator](https://github.com/Reactive-Extensions/Rx.NET/blob/master/Ix.NET/Source/System.Interactive.Async/IAsyncEnumerator.cs),
@@ -292,7 +292,7 @@ public override async Task<RouteSummary> RecordRoute(Grpc.Core.IAsyncStreamReade
 }
 ```
 
-#### Bidirectional streaming RPC
+##### Bidirectional streaming RPC
 
 Finally, let's look at our bidirectional streaming RPC `RouteChat`.
 
@@ -318,7 +318,7 @@ Reading the requests is done the same way as in the client-side streaming method
 `RecordRoute`.  Writing the responses is done the same way as in the server-side
 streaming method `ListFeatures`.
 
-### Starting the server
+#### Starting the server
 
 Once we've implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
@@ -354,14 +354,14 @@ do this, we:
 
 <a name="client"></a>
 
-## Creating the client
+### Creating the client
 
 In this section, we'll look at creating a C# client for our `RouteGuide`
 service. You can see our complete example client code in
 [examples/csharp/RouteGuide/RouteGuideClient/Program.cs](https://github.com/grpc/grpc/blob/
 {{< param grpc_release_tag >}}/examples/csharp/RouteGuide/RouteGuideClient/Program.cs).
 
-### Creating a client object
+#### Creating a client object
 
 To call service methods, we first need to create a client object (also referred
 to as *stub* for other gRPC languages).
@@ -379,14 +379,14 @@ var client = new RouteGuide.RouteGuideClient(channel);
 channel.ShutdownAsync().Wait();
 ```
 
-### Calling service methods
+#### Calling service methods
 
 Now let's look at how we call our service methods. gRPC C# provides asynchronous
 versions of each of the supported method types. For convenience, gRPC C# also
 provides a synchronous method stub, but only for simple (single request/single
 response) RPCs.
 
-#### Simple RPC
+##### Simple RPC
 
 Calling the simple RPC `GetFeature` in a synchronous way is nearly as
 straightforward as calling a local method.
@@ -410,7 +410,7 @@ Point request = new Point { Latitude = 409146138, Longitude = -746188906 };
 Feature feature = await client.GetFeatureAsync(request);
 ```
 
-#### Streaming RPCs
+##### Streaming RPCs
 
 Now let's look at our streaming methods. If you've already read [Creating the
 server](#server) some of this may look very familiar - streaming RPCs are
@@ -477,15 +477,15 @@ using (var call = client.RouteChat())
 }
 ```
 
-## Try it out!
+### Try it out!
 
-### Build the client and server:
+#### Build the client and server:
 
-#### Using Visual Studio (or Visual Studio For Mac)
+##### Using Visual Studio (or Visual Studio For Mac)
 
 - Open the solution `examples/csharp/RouteGuide/RouteGuide.sln` and select **Build**.
 
-#### Using "dotnet" command line tool
+##### Using "dotnet" command line tool
 
 - Run `dotnet build RouteGuide.sln` from the `examples/csharp/RouteGuide` directory.
   See the [quickstart](../../quickstart/csharp.html) for additional instructions on building 

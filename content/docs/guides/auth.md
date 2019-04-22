@@ -10,7 +10,7 @@ languages.</p>
 
 <div id="toc" class="toc mobile-toc"></div>
 
-## Overview
+### Overview
 
 gRPC is designed to work with a variety of authentication mechanisms, making it
 easy to safely use gRPC to talk to other systems. You can use our supported
@@ -21,7 +21,7 @@ gRPC also provides a simple authentication API that lets you provide all the
 necessary authentication information as `Credentials` when creating a channel or
 making a call.
 
-## Supported auth mechanisms
+### Supported auth mechanisms
 
 The following authentication mechanisms are built-in to gRPC:
 
@@ -44,13 +44,13 @@ be used to connect to Google services. Sending a Google issued OAuth2 token
 to a non-Google service could result in this token being stolen and used to
 impersonate the client to Google services.</p>
 
-## Authentication API
+### Authentication API
 
 gRPC provides a simple authentication API based around the unified concept of
 Credentials objects, which can be used when creating an entire gRPC channel or
 an individual call.
 
-### Credential types
+#### Credential types
 
 Credentials can be of two types:
 
@@ -76,7 +76,7 @@ will trigger the sending of the authentication data associated with the two
 `CallCredentials`.
 
 
-### Using client-side SSL/TLS
+#### Using client-side SSL/TLS
 
 Now let's look at how `Credentials` work with one of our supported auth
 mechanisms. This is the simplest authentication scenario, where a client just
@@ -100,7 +100,7 @@ the corresponding options can be set in the `SslCredentialsOptions` parameter
 passed to the factory method.
 
 
-### Using Google token-based authentication
+#### Using Google token-based authentication
 
 gRPC applications can use a simple API to create a credential that works for
 authentication with Google in various deployment scenarios. Again, our example
@@ -127,7 +127,7 @@ handles communication with the authentication systems to obtain OAuth2 access
 tokens and attaches them to each outgoing RPC on the corresponding channel.
 
 
-### Extending gRPC to support other authentication mechanisms
+#### Extending gRPC to support other authentication mechanisms
 
 The Credentials plugin API allows developers to plug in their own type of
 credentials. This consists of:
@@ -167,16 +167,16 @@ A deeper integration can be achieved by plugging in a gRPC credentials
 implementation at the core level. gRPC internals also allow switching out
 SSL/TLS with other encryption mechanisms.
 
-## Examples
+### Examples
 
 These authentication mechanisms will be available in all gRPC's supported
 languages. The following sections demonstrate how authentication and
 authorization features described above appear in each language: more languages
 are coming soon.
 
-### Go
+#### Go
 
-#### Base case - no encryption or authentication
+##### Base case - no encryption or authentication
 
 Client:
 
@@ -196,7 +196,7 @@ lis, _ := net.Listen("tcp", "localhost:50051")
 s.Serve(lis)
 ```
 
-#### With server authentication SSL/TLS
+##### With server authentication SSL/TLS
 
 Client:
 
@@ -218,7 +218,7 @@ lis, _ := net.Listen("tcp", "localhost:50051")
 s.Serve(lis)
 ```
 
-#### Authenticate with Google
+##### Authenticate with Google
 
 ``` go
 pool, _ := x509.SystemCertPool()
@@ -235,9 +235,9 @@ client := pb.NewGreeterClient(conn)
 // ...
 ```
 
-### Ruby
+#### Ruby
 
-#### Base case - no encryption or authentication
+##### Base case - no encryption or authentication
 
 ```ruby
 
@@ -245,14 +245,14 @@ stub = Helloworld::Greeter::Stub.new('localhost:50051', :this_channel_is_insecur
 ...
 ```
 
-#### With server authentication SSL/TLS
+##### With server authentication SSL/TLS
 
 ```ruby
 creds = GRPC::Core::Credentials.new(load_certs)  # load_certs typically loads a CA roots file
 stub = Helloworld::Greeter::Stub.new('myservice.example.com', creds)
 ```
 
-#### Authenticate with Google
+##### Authenticate with Google
 
 ```ruby
 require 'googleauth'  # from http://www.rubydoc.info/gems/googleauth/0.1.0
@@ -264,16 +264,16 @@ combined_creds = ssl_creds.compose(call_creds)
 stub = Helloworld::Greeter::Stub.new('greeter.googleapis.com', combined_creds)
 ```
 
-### C++
+#### C++
 
-#### Base case - no encryption or authentication
+##### Base case - no encryption or authentication
 ```cpp
 auto channel = grpc::CreateChannel("localhost:50051", InsecureChannelCredentials());
 std::unique_ptr<Greeter::Stub> stub(Greeter::NewStub(channel));
 ...
 ```
 
-#### With server authentication SSL/TLS
+##### With server authentication SSL/TLS
 
 ```cpp
 auto channel_creds = grpc::SslCredentials(grpc::SslCredentialsOptions());
@@ -282,7 +282,7 @@ std::unique_ptr<Greeter::Stub> stub(Greeter::NewStub(channel));
 ...
 ```
 
-#### Authenticate with Google
+##### Authenticate with Google
 
 ```cpp
 auto creds = grpc::GoogleDefaultCredentials();
@@ -291,9 +291,9 @@ std::unique_ptr<Greeter::Stub> stub(Greeter::NewStub(channel));
 ...
 ```
 
-### C&#35;
+#### C&#35;
 
-#### Base case - no encryption or authentication
+##### Base case - no encryption or authentication
 
 ```csharp
 var channel = new Channel("localhost:50051", ChannelCredentials.Insecure);
@@ -301,7 +301,7 @@ var client = new Greeter.GreeterClient(channel);
 ...
 ```
 
-#### With server authentication SSL/TLS
+##### With server authentication SSL/TLS
 
 ```csharp
 var channelCredentials = new SslCredentials(File.ReadAllText("roots.pem"));  // Load a custom roots file.
@@ -309,7 +309,7 @@ var channel = new Channel("myservice.example.com", channelCredentials);
 var client = new Greeter.GreeterClient(channel);
 ```
 
-#### Authenticate with Google
+##### Authenticate with Google
 
 
 ```csharp
@@ -323,7 +323,7 @@ var client = new Greeter.GreeterClient(channel);
 ...
 ```
 
-#### Authenticate a single RPC call
+##### Authenticate a single RPC call
 
 ```csharp
 var channel = new Channel("greeter.googleapis.com", new SslCredentials());  // Use publicly trusted roots.
@@ -335,9 +335,9 @@ var result = client.SayHello(request, new CallOptions(credentials: googleCredent
 
 ```
 
-### Python
+#### Python
 
-#### Base case - No encryption or authentication
+##### Base case - No encryption or authentication
 
 ```python
 import grpc
@@ -347,7 +347,7 @@ channel = grpc.insecure_channel('localhost:50051')
 stub = helloworld_pb2.GreeterStub(channel)
 ```
 
-#### With server authentication SSL/TLS
+##### With server authentication SSL/TLS
 
 Client:
 
@@ -380,7 +380,7 @@ server.start()
 # Server sleep omitted
 ```
 
-#### Authenticate with Google using a JWT
+##### Authenticate with Google using a JWT
 
 ```python
 import grpc
@@ -398,7 +398,7 @@ channel = google_auth_transport_grpc.secure_authorized_channel(
 stub = helloworld_pb2.GreeterStub(channel)
 ```
 
-#### Authenticate with Google using an Oauth2 token
+##### Authenticate with Google using an Oauth2 token
 
 ```python
 import grpc
@@ -415,9 +415,9 @@ channel = google_auth_transport_grpc.secure_authorized_channel(
 stub = helloworld_pb2.GreeterStub(channel)
 ```
 
-### Java
+#### Java
 
-#### Base case - no encryption or authentication
+##### Base case - no encryption or authentication
 
 ```java
 ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051)
@@ -427,7 +427,7 @@ GreeterGrpc.GreeterStub stub = GreeterGrpc.newStub(channel);
 
 ```
 
-#### With server authentication SSL/TLS
+##### With server authentication SSL/TLS
 
 In Java we recommend that you use OpenSSL when using gRPC over TLS. You can find
 details about installing and using OpenSSL and other required libraries for both
@@ -470,7 +470,7 @@ ManagedChannel channel = NettyChannelBuilder.forAddress("myservice.example.com",
 GreeterGrpc.GreeterStub stub = GreeterGrpc.newStub(channel);
 ```
 
-#### Authenticate with Google
+##### Authenticate with Google
 
 The following code snippet shows how you can call the [Google Cloud PubSub
 API](https://cloud.google.com/pubsub/overview) using gRPC with a service
@@ -488,22 +488,22 @@ GreeterGrpc.GreeterStub stub = GreeterGrpc.newStub(channel)
     .withCallCredentials(MoreCallCredentials.from(creds));
 ```
 
-### Node.js
+#### Node.js
 
-#### Base case - No encryption/authentication
+##### Base case - No encryption/authentication
 
 ```js
 var stub = new helloworld.Greeter('localhost:50051', grpc.credentials.createInsecure());
 ```
 
-#### With server authentication SSL/TLS
+##### With server authentication SSL/TLS
 
 ```js
 var ssl_creds = grpc.credentials.createSsl(root_certs);
 var stub = new helloworld.Greeter('myservice.example.com', ssl_creds);
 ```
 
-#### Authenticate with Google
+##### Authenticate with Google
 
 ```js
 // Authenticating with Google
@@ -517,7 +517,7 @@ var ssl_creds = grpc.credentials.createSsl(root_certs);
 });
 ```
 
-#### Authenticate with Google using Oauth2 token (legacy approach)
+##### Authenticate with Google using Oauth2 token (legacy approach)
 
 ```js
 var GoogleAuth = require('google-auth-library'); // from https://www.npmjs.com/package/google-auth-library
@@ -534,9 +534,9 @@ var scope = 'https://www.googleapis.com/auth/grpc-testing';
 });
 ```
 
-### PHP
+#### PHP
 
-#### Base case - No encryption/authorization
+##### Base case - No encryption/authorization
 
 ```php
 $client = new helloworld\GreeterClient('localhost:50051', [
@@ -545,7 +545,7 @@ $client = new helloworld\GreeterClient('localhost:50051', [
 ...
 ```
 
-#### Authenticate with Google
+##### Authenticate with Google
 
 ```php
 function updateAuthMetadataCallback($context)
@@ -563,7 +563,7 @@ $opts = [
 $client = new helloworld\GreeterClient('greeter.googleapis.com', $opts);
 ````
 
-#### Authenticate with Google using Oauth2 token (legacy approach)
+##### Authenticate with Google using Oauth2 token (legacy approach)
 
 ```php
 // the environment variable "GOOGLE_APPLICATION_CREDENTIALS" needs to be set
@@ -576,9 +576,9 @@ $opts = [
 $client = new helloworld\GreeterClient('greeter.googleapis.com', $opts);
 ```
 
-### Dart
+#### Dart
 
-#### Base case - no encryption or authentication
+##### Base case - no encryption or authentication
 
 ```dart
 final channel = new ClientChannel('localhost',
@@ -588,7 +588,7 @@ final channel = new ClientChannel('localhost',
 final stub = new GreeterClient(channel);
 ```
 
-#### With server authentication SSL/TLS
+##### With server authentication SSL/TLS
 
 ```dart
 // Load a custom roots file.
@@ -601,7 +601,7 @@ final channel = new ClientChannel('myservice.example.com',
 final client = new GreeterClient(channel);
 ```
 
-#### Authenticate with Google
+##### Authenticate with Google
 
 ```dart
 // Uses publicly trusted roots by default.
@@ -613,7 +613,7 @@ final client =
     new GreeterClient(channel, options: credentials.toCallOptions);
 ```
 
-#### Authenticate a single RPC call
+##### Authenticate a single RPC call
 
 ```dart
 // Uses publicly trusted roots by default.

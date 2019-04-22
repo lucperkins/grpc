@@ -8,13 +8,13 @@ working example.</p>
 
 <div id="toc"></div>
 
-## Before you begin
+### Before you begin
 
-### Prerequisites
+#### Prerequisites
 
 * `JDK`: version 7 or higher
 
-## Download the example
+### Download the example
 
 You'll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -28,7 +28,7 @@ $ # Navigate to the Java examples:
 $ cd grpc-java/examples
 ```
 
-## Run a gRPC application
+### Run a gRPC application
 
 From the `examples` directory:
 
@@ -52,7 +52,7 @@ From the `examples` directory:
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -106,7 +106,7 @@ message HelloReply {
 
 (Don't forget to save the file!)
 
-## Update and run the application
+### Update and run the application
 
 When we recompile the example, normal compilation will regenerate
 `GreeterGrpc.java`, which contains our generated gRPC client and server classes.
@@ -116,7 +116,7 @@ request and response types.
 However, we still need to implement and call the new method in the human-written
 parts of our example application.
 
-### Update the server
+#### Update the server
 
 In the same directory, open
 `src/main/java/io/grpc/examples/helloworld/HelloWorldServer.java`. Implement the
@@ -142,7 +142,7 @@ private class GreeterImpl extends GreeterGrpc.GreeterImplBase {
 ...
 ```
 
-### Update the client
+#### Update the client
 
 In the same directory, open
 `src/main/java/io/grpc/examples/helloworld/HelloWorldClient.java`. Call the new
@@ -170,7 +170,7 @@ public void greet(String name) {
 }
 ```
 
-### Run!
+#### Run!
 
 Just like we did before, from the `examples` directory:
 
@@ -192,7 +192,7 @@ Just like we did before, from the `examples` directory:
    $ ./build/install/examples/bin/hello-world-client
    ```
 
-## What's next
+### What's next
 
 - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
   and [gRPC Concepts](/docs/guides/concepts/)

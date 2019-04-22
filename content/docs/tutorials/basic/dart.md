@@ -21,7 +21,7 @@ guide](https://developers.google.com/protocol-buffers/docs/proto3).
 
 <div id="toc"></div>
 
-## Why use gRPC?
+### Why use gRPC?
 
 Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -36,7 +36,7 @@ handled for you by gRPC. We also get all the advantages of working with protocol
 buffers, including efficient serialization, a simple IDL, and easy interface
 updating.
 
-## Example code and setup
+### Example code and setup
 
 The example code for our tutorial is in
 [grpc/grpc-dart/example/route_guide](https://github.com/grpc/grpc-dart/tree/master/example/route_guide).
@@ -56,7 +56,7 @@ $ cd grpc-dart/example/route_guide
 You also should have the relevant tools installed to generate the server and client interface code - if you don't already, follow the setup instructions in [the Dart quick start guide](/docs/quickstart/dart/).
 
 
-## Defining the service
+### Defining the service
 
 Our first step (as you'll know from the [Overview](/docs/)) is to
 define the gRPC *service* and the method *request* and *response* types using
@@ -138,7 +138,7 @@ message Point {
 }
 ```
 
-## Generating client and server code
+### Generating client and server code
 
 Next we need to generate the gRPC client and server interfaces from our .proto
 service definition. We do this using the protocol buffer compiler `protoc` with
@@ -171,7 +171,7 @@ This contains:
 
 <a name="server"></a>
 
-## Creating the server
+### Creating the server
 
 First let's look at how we create a `RouteGuide` server. If you're only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -189,7 +189,7 @@ You can find our example `RouteGuide` server in
 [grpc-dart/example/route_guide/lib/src/server.dart](https://github.com/grpc/grpc-dart/tree/master/example/route_guide/lib/src/server.dart).
 Let's take a closer look at how it works.
 
-### Implementing RouteGuide
+#### Implementing RouteGuide
 
 As you can see, our server has a `RouteGuideService` class that extends the
 generated abstract `RouteGuideServiceBase` class:
@@ -219,7 +219,7 @@ class RouteGuideService extends RouteGuideServiceBase {
 }
 ```
 
-#### Simple RPC
+##### Simple RPC
 `RouteGuideService` implements all our service methods. Let's look at the
 simplest type first, `GetFeature`, which just gets a `Point` from the client and
 returns the corresponding feature information from its database in a `Feature`.
@@ -240,7 +240,7 @@ response information. In the method we populate the `Feature` with the appropria
 information, and then `return` it to the gRPC framework, which sends it back to
 the client.
 
-#### Server-side streaming RPC
+##### Server-side streaming RPC
 
 Now let's look at one of our streaming RPCs. `ListFeatures` is a server-side
 streaming RPC, so we need to send back multiple `Feature`s to our client.
@@ -277,7 +277,7 @@ Should any error happen in this call, the error will be added as an exception
 to the stream, and the gRPC layer will translate it into an appropriate RPC
 status to be sent on the wire.
 
-#### Client-side streaming RPC
+##### Client-side streaming RPC
 
 Now let's look at something a little more complicated: the client-side
 streaming method `RecordRoute`, where we get a stream of `Point`s from the
@@ -326,7 +326,7 @@ in our client's requests (in this case `Point` objects) until there are no more
 messages. Once the request stream is done, the server can return its
 `RouteSummary`.
 
-#### Bidirectional streaming RPC
+##### Bidirectional streaming RPC
 Finally, let's look at our bidirectional streaming RPC `RouteChat()`.
 
 ```dart
@@ -354,7 +354,7 @@ server-streaming methods. Although each side will always get the other's message
 in the order they were written, both the client and server can read and write in
 any order — the streams operate completely independently.
 
-### Starting the server
+#### Starting the server
 
 Once we've implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
@@ -379,13 +379,13 @@ To build and start a server, we:
 
 <a name="client"></a>
 
-## Creating the client
+### Creating the client
 
 In this section, we'll look at creating a Dart client for our `RouteGuide`
 service. You can see our complete example client code in
 [grpc-dart/example/route_guide/lib/src/client.dart](https://github.com/grpc/grpc-dart/tree/master/example/route_guide/lib/src/client.dart).
 
-### Creating a stub
+#### Creating a stub
 
 To call service methods, we first need to create a gRPC *channel* to communicate
 with the server. We create this by passing the server address and port number to
@@ -414,13 +414,13 @@ You can use `CallOptions` to set the auth credentials (e.g., GCE credentials,
 JWT credentials) if the service you request requires that - however, we don't
 need to do this for our `RouteGuide` service.
 
-### Calling service methods
+#### Calling service methods
 
 Now let's look at how we call our service methods. Note that in gRPC-Dart, RPCs
 are always asynchronous, which means that the RPC returns a `Future` or `Stream`
 that must be listened to, to get the response from the server or an error.
 
-#### Simple RPC
+##### Simple RPC
 
 Calling the simple RPC `GetFeature` is nearly as straightforward as calling a
 local method.
@@ -439,7 +439,7 @@ behaviour if necessary, such as time-out. If the call doesn't return an error,
 the returned `Future` completes with the response information from the server.
 If there is an error, the `Future` will complete with the error.
 
-#### Server-side streaming RPC
+##### Server-side streaming RPC
 
 Here's where we call the server-side streaming method `ListFeatures`, which
 returns a stream of geographical `Feature`s. If you've already read [Creating
@@ -466,7 +466,7 @@ We use `await for` on the returned stream to repeatedly read in the server's
 responses to a response protocol buffer object (in this case a `Feature`) until
 there are no more messages.
 
-#### Client-side streaming RPC
+##### Client-side streaming RPC
 
 The client-side streaming method `RecordRoute` is similar to the server-side
 method, except that we pass the method a `Stream` and get a `Future` back.
@@ -494,7 +494,7 @@ the stream is done (when `generateRoute()` returns), gRPC knows that we've finis
 writing and are expecting to receive a response. The returned `Future` will either
 complete with the `RouteSummary` message received from the server, or an error.
 
-#### Bidirectional streaming RPC
+##### Bidirectional streaming RPC
 
 Finally, let's look at our bidirectional streaming RPC `RouteChat()`. As in the
 case of `RecordRoute`, we pass the method a stream where we will write the request
@@ -517,7 +517,7 @@ server-side streaming methods. Although each side will always get the other's
 messages in the order they were written, both the client and server can read and
 write in any order — the streams operate completely independently.
 
-## Try it out!
+### Try it out!
 
 Go to the `examples/route_guide` folder.
 
@@ -539,7 +539,7 @@ Likewise, to run the client:
 $ dart bin/client.dart
 ```
 
-## Reporting issues
+### Reporting issues
 
 Should you encounter an issue, please help us out by
 <a href="https://github.com/grpc/grpc-dart/issues/new">filing issues</a>

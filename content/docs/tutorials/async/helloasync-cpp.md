@@ -15,7 +15,7 @@ instructions in
 
 <div id="toc"></div>
 
-## Overview
+### Overview
 
 gRPC uses the
 [`CompletionQueue`](/grpc/cpp/classgrpc_1_1_completion_queue.html)
@@ -27,7 +27,7 @@ is as follows:
 - call `CompletionQueue::Next` to wait for operations to complete. If a tag
   appears, it indicates that the corresponding operation is complete.
 
-## Async client
+### Async client
 
 To use an asynchronous client to call a remote method, you first create a
 channel and stub, just as you do in a [synchronous
@@ -65,7 +65,7 @@ the following to make an asynchronous call:
 You can see the complete client example in
 [greeter&#95;async&#95;client.cc](https://github.com/grpc/grpc/blob/{{< param grpc_release_tag >}}/examples/cpp/helloworld/greeter_async_client.cc).
 
-## Async server
+### Async server
 
 The server implementation requests an RPC call with a tag and then waits for the
 completion queue to return the tag. The basic flow for handling an RPC
@@ -190,7 +190,7 @@ runs a main loop in `HandleRpcs` to query the queue:
   }
 ```
 
-### Shutting Down the Server
+#### Shutting Down the Server
 We've been using a completion queue to get the async notifications. Care must be
 taken to shut it down *after* the server has also been shut down.
 

@@ -17,13 +17,13 @@ This guide also does not cover anything on the server side. You can check the [J
 
 <div id="toc"></div>
 
-## Why use gRPC?
+### Why use gRPC?
 
 Our example is a simple route mapping application that lets clients get information about features on their route, create a summary of their route, and exchange route information such as traffic updates with the server and other clients.
 
 With gRPC we can define our service once in a .proto file and implement clients and servers in any of gRPC's supported languages, which in turn can be run in environments ranging from servers inside Google to your own tablet - all the complexity of communication between different languages and environments is handled for you by gRPC. We also get all the advantages of working with protocol buffers, including efficient serialization, a simple IDL, and easy interface updating.
 
-## Example code and setup
+### Example code and setup
 
 The example code for our tutorial is in [grpc-java's examples/android](https://github.com/grpc/grpc-java/tree/{{< param grpc_release_tag >}}/examples/android). To download the example, clone the `grpc-java` repository by running the following command:
 
@@ -40,7 +40,7 @@ $ cd grpc-java/examples/android
 You also should have the relevant tools installed to generate the client interface code - if you don't already, follow the setup instructions in [the Java README](https://github.com/grpc/grpc-java/blob/{{< param grpc_release_tag >}}/README.md).
 
 
-## Defining the service
+### Defining the service
 
 Our first step (as you'll know from the [Overview](/docs/)) is to define the gRPC *service* and the method *request* and *response* types using [protocol buffers](https://developers.google.com/protocol-buffers/docs/overview). You can see the complete .proto file in [`routeguide/app/src/main/proto/route_guide.proto`](https://github.com/grpc/grpc-java/blob/{{< param grpc_release_tag >}}/examples/android/routeguide/app/src/main/proto/route_guide.proto).
 
@@ -109,7 +109,7 @@ message Point {
 ```
 
 
-## Generating client code
+### Generating client code
 
 Next we need to generate the gRPC client interfaces from our .proto
 service definition. We do this using the protocol buffer compiler `protoc` with
@@ -136,11 +136,11 @@ The following classes are generated from our service definition:
   - *stub* classes that clients can use to talk to a `RouteGuide` server.
 
 
-## Creating the client
+### Creating the client
 
 In this section, we'll look at creating a Java client for our `RouteGuide` service. You can see our complete example client code in [`routeguide/app/src/main/java/io/grpc/routeguideexample/RouteGuideActivity.java`](https://github.com/grpc/grpc-java/blob/{{< param grpc_release_tag >}}/examples/android/routeguide/app/src/main/java/io/grpc/routeguideexample/RouteGuideActivity.java).
 
-### Creating a stub
+#### Creating a stub
 
 To call service methods, we first need to create a *stub*, or rather, two stubs:
 
@@ -161,11 +161,11 @@ blockingStub = RouteGuideGrpc.newBlockingStub(mChannel);
 asyncStub = RouteGuideGrpc.newStub(mChannel);
 ```
 
-### Calling service methods
+#### Calling service methods
 
 Now let's look at how we call our service methods.
 
-#### Simple RPC
+##### Simple RPC
 
 Calling the simple RPC `GetFeature` on the blocking stub is as straightforward as calling a local method.
 
@@ -176,7 +176,7 @@ Feature feature = blockingStub.getFeature(request);
 
 We create and populate a request protocol buffer object (in our case `Point`), pass it to the `getFeature()` method on our blocking stub, and get back a `Feature`.
 
-#### Server-side streaming RPC
+##### Server-side streaming RPC
 
 Next, let's look at a server-side streaming call to `ListFeatures`, which returns a stream of geographical `Feature`s:
 
@@ -190,7 +190,7 @@ Iterator<Feature> features = blockingStub.listFeatures(request);
 
 As you can see, it's very similar to the simple RPC we just looked at, except instead of returning a single `Feature`, the method returns an `Iterator` that the client can use to read all the returned `Feature`s.
 
-#### Client-side streaming RPC
+##### Client-side streaming RPC
 
 Now for something a little more complicated: the client-side streaming method `RecordRoute`, where we send a stream of `Point`s to the server and get back a single `RouteSummary`. For this method we need to use the asynchronous stub. If you've already read [Creating the server](/docs/tutorials/basic/java/#creating-the-server) some of this may look very familiar - asynchronous streaming RPCs are implemented in a similar way on both sides.
 
@@ -269,7 +269,7 @@ As you can see, to call this method we need to create a `StreamObserver`, which 
 
 We then pass the `StreamObserver` to the asynchronous stub's `recordRoute()` method and get back our own `StreamObserver` request observer to write our `Point`s to send to the server.  Once we've finished writing points, we use the request observer's `onCompleted()` method to tell gRPC that we've finished writing on the client side. Once we're done, we check our `SettableFuture` to check that the server has completed on its side.
 
-#### Bidirectional streaming RPC
+##### Bidirectional streaming RPC
 
 Finally, let's look at our bidirectional streaming RPC `RouteChat()`.
 
@@ -337,7 +337,7 @@ private String routeChat(RouteGuideStub asyncStub) throws InterruptedException,
 As with our client-side streaming example, we both get and return a `StreamObserver` response observer, except this time we send values via our method's response observer while the server is still writing messages to *their* message stream. The syntax for reading and writing here is exactly the same as for our client-streaming method. Although each side will always get the other's messages in the order they were written, both the client and server can read and write in any order — the streams operate completely independently.
 
 
-## Try it out!
+### Try it out!
 
 Follow the instructions in the example directory [README](https://github.com/grpc/grpc-java/blob/{{< param grpc_release_tag >}}/examples/android/README.md) to build and run the client and server.
 

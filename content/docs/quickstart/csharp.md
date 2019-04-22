@@ -9,9 +9,9 @@ working example.</p>
 
 <div id="toc"></div>
 
-## Before you begin
+### Before you begin
 
-### Prerequisites
+#### Prerequisites
 
 Whether you're using Windows, OS X, or Linux, you can follow this
 example by using either an IDE and its build tools,
@@ -21,7 +21,7 @@ First, make sure you have installed the
 [gRPC C# prerequisites](https://github.com/grpc/grpc/blob/{{< param grpc_release_tag >}}/src/csharp/README.md#prerequisites).
 You will also need Git to download the sample code.
 
-## Download the example
+### Download the example
 
 You'll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -40,13 +40,13 @@ The projects and source files can be found in the `examples/csharp/Helloworld` d
 The example in this walkthrough already adds the necessary
 dependencies for you (`Grpc`, `Grpc.Tools` and `Google.Protobuf` NuGet packages).
 
-## Build the example
+### Build the example
 
-### Using Visual Studio (or Visual Studio for Mac)
+#### Using Visual Studio (or Visual Studio for Mac)
 * Open the solution `Greeter.sln` with Visual Studio
 * Build the solution
 
-### Using .NET Core SDK from the command line
+#### Using .NET Core SDK from the command line
 From the `examples/csharp/Helloworld` directory:
 
 ```sh
@@ -56,7 +56,7 @@ From the `examples/csharp/Helloworld` directory:
 *NOTE: If you want to use gRPC C# from a project that uses the "classic" .csproj files (supported by Visual Studio 2013, 2015 and older versions of Mono), please refer to the
 [Greeter using "classic" .csproj](https://github.com/grpc/grpc/blob/{{< param grpc_release_tag >}}/examples/csharp/HelloworldLegacyCsproj/README.md) example.*
 
-## Run a gRPC application
+### Run a gRPC application
 
 From the `examples/csharp/Helloworld` directory:
 
@@ -76,7 +76,7 @@ From the `examples/csharp/Helloworld` directory:
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -131,7 +131,7 @@ message HelloReply {
 
 (Don't forget to save the file!)
 
-## Generate gRPC code
+### Generate gRPC code
 
 Next we need to update the gRPC code used by our application to use the new service definition. 
 
@@ -158,12 +158,12 @@ under the `Greeter/obj/Debug/TARGET_FRAMEWORK` directory:
     * a class `Greeter.GreeterClient` that can be used to access remote Greeter
       instances
     
-## Update and run the application
+### Update and run the application
 
 We now have new generated server and client code, but we still need to implement
 and call the new method in the human-written parts of our example application.
 
-### Update the server
+#### Update the server
 
 With the `Greeter.sln` open in your IDE, open `GreeterServer/Program.cs`.
 Implement the new method by editing the GreeterImpl class like this:
@@ -185,7 +185,7 @@ class GreeterImpl : Greeter.GreeterBase
 }
 ```
 
-### Update the client
+#### Update the client
 
 With the same `Greeter.sln` open in your IDE, open `GreeterClient/Program.cs`.
 Call the new method like this:
@@ -210,12 +210,12 @@ public static void Main(string[] args)
 }
 ```
 
-### Rebuild the modified example
+#### Rebuild the modified example
 
 Rebuild the newly modified example just like we first built the original
 example by running `dotnet build Greeter.sln` or by clicking "Build" in Visual Studio.
 
-### Run!
+#### Run!
 
 Just like we did before, from the `examples/csharp/Helloworld` directory:
 
@@ -233,7 +233,7 @@ Just like we did before, from the `examples/csharp/Helloworld` directory:
 > dotnet run -f netcoreapp2.1
 ```
 
-## What's next
+### What's next
 
 - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
   and [gRPC Concepts](/docs/guides/concepts/)

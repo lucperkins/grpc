@@ -25,7 +25,7 @@ guide](https://developers.google.com/protocol-buffers/docs/reference/objective-c
 
 <a name="why-grpc"></a>
 
-## Why use gRPC?
+### Why use gRPC?
 
 With gRPC you can define your service once in a .proto file and implement
 clients and servers in any of gRPC's supported languages, which in turn can be
@@ -46,7 +46,7 @@ strip unused code is limited by the dynamic nature of the language.
 
 <a name="setup"></a>
 
-## Example code and setup
+### Example code and setup
 
 The example code for our tutorial is in
 [grpc/grpc/examples/objective-c/route_guide](https://github.com/grpc/grpc/tree/{{< param grpc_release_tag >}}/examples/objective-c/route_guide).
@@ -110,7 +110,7 @@ uses that library.
 
 <a name="proto"></a>
 
-## Defining the service
+### Defining the service
 
 First let's look at how the service we're using is defined. A gRPC *service* and
 its method *request* and *response* types using [protocol
@@ -201,7 +201,7 @@ option objc_class_prefix = "RTG";
 
 <a name="protoc"></a>
 
-## Generating client code
+### Generating client code
 
 Next we need to generate the gRPC client interfaces from our .proto service
 definition. We do this using the protocol buffer compiler (`protoc`) with a
@@ -248,7 +248,7 @@ version, and other metadata.
 
 <a name="client"></a>
 
-## Creating the client application
+### Creating the client application
 
 In this section, we'll look at creating an Objective-C client for our
 `RouteGuide` service. You can see our complete example client code in
@@ -257,7 +257,7 @@ In this section, we'll look at creating an Objective-C client for our
 put all of your view controllers in a single file; it's done here only to
 simplify the learning process).
 
-### Constructing a service object
+#### Constructing a service object
 
 To call service methods, we first need to create a service object, an instance
 of the generated `RTGRouteGuide` class. The designated initializer of the class
@@ -284,13 +284,13 @@ over TLS. For that case, the `useInsecureConnectionsForHost:` call isn't needed,
 and the port defaults to 443 if absent.
 
 
-### Calling service methods
+#### Calling service methods
 
 Now let's look at how we call our service methods. As you will see, all these
 methods are asynchronous, so you can call them from the main thread of your app
 without worrying about freezing your UI or the OS killing your app.
 
-#### Simple RPC
+##### Simple RPC
 
 Calling the simple RPC `GetFeature` is as straightforward as calling any other
 asynchronous method on Cocoa.
@@ -322,7 +322,7 @@ error argument.
 NSLog(@"Found feature called %@ at %@.", response.name, response.location);
 ```
 
-#### Streaming RPCs
+##### Streaming RPCs
 
 Now let's look at our streaming methods. Here's where we call the
 response-streaming method `ListFeatures`, which results in our client app

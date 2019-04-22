@@ -8,9 +8,9 @@ working example.</p>
 
 <div id="toc"></div>
 
-## Before you begin
+### Before you begin
 
-### Prerequisites
+#### Prerequisites
 
 *   `JDK`: version 7 or higher
 *   Android SDK: API level 14 or higher
@@ -23,7 +23,7 @@ Note: gRPC Java does not support running a server on an Android device. For this
 quickstart, the Android client app will connect to a server running on your
 local (non-Android) computer.
 
-## Download the example
+### Download the example
 
 You'll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -37,7 +37,7 @@ $ # Navigate to the Java examples:
 $ cd grpc-java/examples
 ```
 
-## Run a gRPC application
+### Run a gRPC application
 
 1. Compile the server
 
@@ -60,7 +60,7 @@ $ cd grpc-java/examples
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -114,7 +114,7 @@ message HelloReply {
 
 (Don't forget to save the file!)
 
-## Update and run the application
+### Update and run the application
 
 When we recompile the example, normal compilation will regenerate
 `GreeterGrpc.java`, which contains our generated gRPC client and server classes.
@@ -124,11 +124,11 @@ request and response types.
 However, we still need to implement and call the new method in the human-written
 parts of our example application.
 
-### Update the server
+#### Update the server
 
 Check out the Java quickstart [here](/docs/quickstart/java/#update-the-server).
 
-### Update the client
+#### Update the client
 
 In the same directory, open
 `app/src/main/java/io/grpc/helloworldexample/HelloworldActivity.java`. Call the new
@@ -148,7 +148,7 @@ method like this:
     }
 ```
 
-### Run!
+#### Run!
 
 Just like we did before, from the `examples` directory:
 
@@ -196,7 +196,7 @@ enable port forwarding. Instead, the emulator can use the IP address
 `10.0.2.2` to refer to the host machine. Inside the Android Hello World app,
 enter `10.0.2.2` and `50051` as the `Host` and `Port`.
 
-## What's next
+### What's next
 
 - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
   and [gRPC Concepts](/docs/guides/concepts/)

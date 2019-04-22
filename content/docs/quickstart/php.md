@@ -64,13 +64,13 @@ $ chmod +x phpunit-old.phar
 $ sudo mv phpunit-old.phar /usr/bin/phpunit
 ```
 
-## Install the gRPC PHP extension
+### Install the gRPC PHP extension
 
 There are two ways to install gRPC PHP extension.
 * `pecl`
 * `build from source`
 
-### Using PECL
+#### Using PECL
 
 ```sh
 sudo pecl install grpc
@@ -85,12 +85,12 @@ sudo pecl install grpc-1.7.0
 Note: for users on CentOS/RHEL 6, unfortunately this step won’t work. 
 Please follow the instructions below to compile the PECL extension from source.
 
-#### Install on Windows
+##### Install on Windows
 
 You can download the pre-compiled gRPC extension from the PECL
 [website](https://pecl.php.net/package/grpc)
 
-### Build from Source with gRPC C core library
+#### Build from Source with gRPC C core library
 
 Clone this repository
 
@@ -98,7 +98,7 @@ Clone this repository
 $ git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
 ```
 
-#### Build and install the gRPC C core library
+##### Build and install the gRPC C core library
 
 ```sh
 $ cd grpc
@@ -107,7 +107,7 @@ $ make
 $ sudo make install
 ```
 
-#### Build and install gRPC PHP extension
+##### Build and install gRPC PHP extension
 
 Compile the gRPC PHP extension
 
@@ -124,7 +124,7 @@ standard PHP extension directory. You should be able to run
 the [unit tests](#unit-tests), with the PHP extension installed.
 
 
-### Update php.ini
+#### Update php.ini
 
 After installing the gRPC extension, make sure you add this line 
 to your `php.ini` file, (e.g. `/etc/php5/cli/php.ini`, 
@@ -149,13 +149,13 @@ To run tests with generated stub code from `.proto` files, you will also
 need the `composer` and `protoc` binaries. You can find out how to get these below.
 
 
-## Install other prerequisites for both Mac OS X and Linux
+### Install other prerequisites for both Mac OS X and Linux
 
 * `protoc: protobuf compiler`
 * `protobuf.so: protobuf runtime library`
 * `grpc_php_plugin: Generates PHP gRPC service interface out of Protobuf IDL`
 
-### Install Protobuf compiler
+#### Install Protobuf compiler
 
 If you don't have it already, you need to install the protobuf compiler
 `protoc`, version 3.4.0+ (the newer the better) for the current gRPC version.
@@ -194,14 +194,14 @@ $ ./autogen.sh && ./configure && make
 $ sudo make install
 ```
 
-### Protobuf Runtime library
+#### Protobuf Runtime library
 
 There are two protobuf runtime libraries to choose from. They are identical
 in terms of APIs offered. The C implementation provides better performance, 
 while the native implementation is easier to install. Make sure the installed 
 protobuf version works with grpc version.
 
-#### 1. C implementation (for better performance)
+##### 1. C implementation (for better performance)
 
 ``` sh
 $ sudo pecl install protobuf
@@ -221,7 +221,7 @@ depending on where your PHP installation is.
 extension=protobuf.so
 ```
 
-#### 2. PHP implementation (for easier installation)
+##### 2. PHP implementation (for easier installation)
 
 Add this to your `composer.json` file:
 
@@ -231,7 +231,7 @@ Add this to your `composer.json` file:
   }
 ```
 
-### PHP Protoc Plugin
+#### PHP Protoc Plugin
 
 You need the gRPC PHP protoc plugin to generate the client stub classes.
 It can generate server and client code from .proto service definitions.
@@ -254,7 +254,7 @@ Plugin may use the new feature of the new protobuf version, thus please also
 make sure that the protobuf version installed is compatible with the grpc version 
 you build this plugin.
 
-## Download the example
+### Download the example
 
 You'll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -276,7 +276,7 @@ $ ./greeter_proto_gen.sh
 $ composer install
 ```
 
-## Run a gRPC application
+### Run a gRPC application
 
 From the `examples/node` directory:
 
@@ -298,7 +298,7 @@ In another terminal, from the `examples/php` directory:
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -353,7 +353,7 @@ message HelloReply {
 
 (Don't forget to save the file!)
 
-## Generate gRPC code
+### Generate gRPC code
 
 Next we need to update the gRPC code used by our application to use the new
 service definition. From the `grpc` root directory:
@@ -377,12 +377,12 @@ This regenerates the protobuf files, which contain our generated client classes,
 as well as classes for populating, serializing, and retrieving our request and
 response types.
 
-## Update and run the application
+### Update and run the application
 
 We now have new generated client code, but we still need to implement and call
 the new method in the human-written parts of our example application.
 
-### Update the server
+#### Update the server
 
 In the same directory, open `greeter_server.js`. Implement the new method like
 this:
@@ -406,7 +406,7 @@ function main() {
 ...
 ```
 
-### Update the client
+#### Update the client
 
 In the same directory, open `greeter_client.php`. Call the new method like this:
 
@@ -419,7 +419,7 @@ In the same directory, open `greeter_client.php`. Call the new method like this:
     $message = $reply->getMessage();
 ```
 
-### Run!
+#### Run!
 
 Just like we did before, from the `examples/node/dynamic_codegen` directory:
 
@@ -437,7 +437,7 @@ In another terminal, from the `examples/php` directory:
    $ ./run_greeter_client.sh
    ```
 
-## What's next
+### What's next
 
 - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
   and [gRPC Concepts](/docs/guides/concepts/)

@@ -22,7 +22,7 @@ guide](https://developers.google.com/protocol-buffers/docs/reference/python-gene
 
 <div id="toc"></div>
 
-## Why use gRPC?
+### Why use gRPC?
 
 This example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -37,7 +37,7 @@ is handled for you by gRPC. You also get all the advantages of working with
 protocol buffers, including efficient serialization, a simple IDL, and easy
 interface updating.
 
-## Example code and setup
+### Example code and setup
 
 The example code for this tutorial is in
 [grpc/grpc/examples/python/route_guide](https://github.com/grpc/grpc/tree/{{< param grpc_release_tag >}}/examples/python/route_guide).
@@ -58,7 +58,7 @@ You also should have the relevant tools installed to generate the server and
 client interface code - if you don't already, follow the setup instructions in
 [the Python quick start guide](/docs/quickstart/python).
 
-## Defining the service
+### Defining the service
 
 Your first step (as you'll know from the [Overview](/docs/guides/#overview)) is to
 define the gRPC *service* and the method *request* and *response* types using
@@ -143,7 +143,7 @@ message Point {
 }
 ```
 
-## Generating client and server code
+### Generating client and server code
 
 Next you need to generate the gRPC client and server interfaces from your .proto
 service definition.
@@ -178,7 +178,7 @@ Note: The `2` in pb2 indicates that the generated code is following Protocol Buf
 
 <a name="server"></a>
 
-## Creating the server
+### Creating the server
 
 First let's look at how you create a `RouteGuide` server. If you're only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -194,7 +194,7 @@ Creating and running a `RouteGuide` server breaks down into two work items:
 You can find the example `RouteGuide` server in
 [examples/python/route_guide/route_guide_server.py](https://github.com/grpc/grpc/blob/{{< param grpc_release_tag >}}/examples/python/route_guide/route_guide_server.py).
 
-### Implementing RouteGuide
+#### Implementing RouteGuide
 
 `route_guide_server.py` has a `RouteGuideServicer` class that subclasses the
 generated class `route_guide_pb2_grpc.RouteGuideServicer`:
@@ -206,7 +206,7 @@ class RouteGuideServicer(route_guide_pb2_grpc.RouteGuideServicer):
 
 `RouteGuideServicer` implements all the `RouteGuide` service methods.
 
-#### Simple RPC
+##### Simple RPC
 
 Let's look at the simplest type first, `GetFeature`, which just gets a `Point`
 from the client and returns the corresponding feature information from its
@@ -225,7 +225,7 @@ The method is passed a `route_guide_pb2.Point` request for the RPC, and a
 `grpc.ServicerContext` object that provides RPC-specific information such as
 timeout limits. It returns a `route_guide_pb2.Feature` response.
 
-#### Response-streaming RPC
+##### Response-streaming RPC
 
 Now let's look at the next method. `ListFeatures` is a response-streaming RPC
 that sends multiple `Feature`s to the client.
@@ -248,7 +248,7 @@ Here the request message is a `route_guide_pb2.Rectangle` within which the
 client wants to find `Feature`s. Instead of returning a single response the
 method yields zero or more responses.
 
-#### Request-streaming RPC
+##### Request-streaming RPC
 
 The request-streaming method `RecordRoute` uses an
 [iterator](https://docs.python.org/2/library/stdtypes.html#iterator-types) of
@@ -277,7 +277,7 @@ def RecordRoute(self, request_iterator, context):
                                       elapsed_time=int(elapsed_time))
 ```
 
-#### Bidirectional streaming RPC
+##### Bidirectional streaming RPC
 
 Lastly let's look at the bidirectionally-streaming method `RouteChat`.
 
@@ -295,7 +295,7 @@ This method's semantics are a combination of those of the request-streaming
 method and the response-streaming method. It is passed an iterator of request
 values and is itself an iterator of response values.
 
-### Starting the server
+#### Starting the server
 
 Once you have implemented all the `RouteGuide` methods, the next step is to
 start up a gRPC server so that clients can actually use your service:
@@ -314,12 +314,12 @@ else for your code to do while serving.
 
 <a name="client"></a>
 
-## Creating the client
+### Creating the client
 
 You can see the complete example client code in
 [examples/python/route_guide/route_guide_client.py](https://github.com/grpc/grpc/blob/{{< param grpc_release_tag >}}/examples/python/route_guide/route_guide_client.py).
 
-### Creating a stub
+#### Creating a stub
 
 To call service methods, we first need to create a *stub*.
 
@@ -331,7 +331,7 @@ channel = grpc.insecure_channel('localhost:50051')
 stub = route_guide_pb2_grpc.RouteGuideStub(channel)
 ```
 
-### Calling service methods
+#### Calling service methods
 
 For RPC methods that return a single response ("response-unary" methods), gRPC
 Python supports both synchronous (blocking) and asynchronous (non-blocking)
@@ -339,7 +339,7 @@ control flow semantics. For response-streaming RPC methods, calls immediately
 return an iterator of response values. Calls to that iterator's `next()` method
 block until the response to be yielded from the iterator becomes available.
 
-#### Simple RPC
+##### Simple RPC
 
 A synchronous call to the simple RPC `GetFeature` is nearly as straightforward
 as calling a local method. The RPC call waits for the server to respond, and
@@ -357,7 +357,7 @@ feature_future = stub.GetFeature.future(point)
 feature = feature_future.result()
 ```
 
-#### Response-streaming RPC
+##### Response-streaming RPC
 
 Calling the response-streaming `ListFeatures` is similar to working with
 sequence types:
@@ -366,7 +366,7 @@ sequence types:
 for feature in stub.ListFeatures(rectangle):
 ```
 
-#### Request-streaming RPC
+##### Request-streaming RPC
 
 Calling the request-streaming `RecordRoute` is similar to passing an iterator
 to a local method. Like the simple RPC above that also returns a single
@@ -381,7 +381,7 @@ route_summary_future = stub.RecordRoute.future(point_iterator)
 route_summary = route_summary_future.result()
 ```
 
-#### Bidirectional streaming RPC
+##### Bidirectional streaming RPC
 
 Calling the bidirectionally-streaming `RouteChat` has (as is the case on the
 service-side) a combination of the request-streaming and response-streaming
@@ -391,7 +391,7 @@ semantics:
 for received_route_note in stub.RouteChat(sent_route_note_iterator):
 ```
 
-## Try it out!
+### Try it out!
 
 Run the server, which will listen on port 50051:
 

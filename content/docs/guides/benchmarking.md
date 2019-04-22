@@ -12,7 +12,7 @@ and the testing infrastructure.</p>
 
 <a name="Overview"></a>
 
-## Overview
+### Overview
 
 gRPC is designed for both high-performance and high-productivity
 design of distributed applications. Continuous performance
@@ -33,7 +33,7 @@ CPU is spent.
   * [C Core shared component benchmarks](https://performance-dot-grpc-testing.appspot.com/explore?dashboard=5641826627223552&container=789696829&widget=512792852)
   * [C Core HTTP/2 microbenchmarks](https://performance-dot-grpc-testing.appspot.com/explore?dashboard=5732910535540736)
 
-## Performance testing design
+### Performance testing design
 
 Each language implements a performance testing worker that implements
 a gRPC
@@ -56,7 +56,7 @@ environment variable specifying the host:port of each worker process.
 
 <a name="Languages under test"></a>
 
-## Languages under test
+### Languages under test
 
 The following languages have continuous performance testing as both
 clients and servers at master:
@@ -86,7 +86,7 @@ continuous testing mode.
 
 <a name="Scenarios under test"></a>
 
-## Scenarios under test
+### Scenarios under test
 
 There are several important scenarios under test and displayed in the dashboards
 above, including the following:
@@ -102,7 +102,7 @@ scenarios may be added in the future.
 
 <a name="Testing infrastructure"></a>
 
-## Testing infrastructure
+### Testing infrastructure
 
 All performance benchmarks are run as instances in GCE through our
 Jenkins testing infrastructure. In addition to the gRPC performance

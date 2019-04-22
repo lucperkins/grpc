@@ -8,8 +8,6 @@ working example.</p>
 
 <div id="toc"></div>
 
-## Before you begin
-
 ### Prerequisites
 
 #### Go version
@@ -49,11 +47,11 @@ The compiler plugin, protoc-gen-go, will be installed in $GOBIN, defaulting to $
 $ export PATH=$PATH:$GOPATH/bin
 ```
 
-## Download the example
+### Download the example
 
 The grpc code that was fetched with `go get google.golang.org/grpc` also contains the examples. They can be found under the examples dir: `$GOPATH/src/google.golang.org/grpc/examples`.
 
-## Build the example
+### Build the example
 
 Change to the example directory
 
@@ -70,7 +68,7 @@ This `helloworld.pb.go` file contains:
   * Generated client and server code.
   * Code for populating, serializing, and retrieving our `HelloRequest` and `HelloReply` message types.
 
-## Try it!
+### Try it!
 
 To compile and run the server and client code, the `go run` command can be used.
 In the examples directory:
@@ -89,7 +87,7 @@ If things go smoothly, you will see the `Greeting: Hello world` in the client si
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -143,7 +141,7 @@ message HelloReply {
 }
 ```
 
-## Generate gRPC code
+### Generate gRPC code
 
 Next we need to update the gRPC code used by our application to use the new
 service definition. From the same examples dir as above (`$GOPATH/src/google.golang.org/grpc/examples/helloworld`)
@@ -154,12 +152,12 @@ $ protoc -I helloworld/ helloworld/helloworld.proto --go_out=plugins=grpc:hellow
 
 This regenerates the helloworld.pb.go with our new changes.
 
-## Update and run the application
+### Update and run the application
 
 We now have new generated server and client code, but we still need to implement
 and call the new method in the human-written parts of our example application.
 
-### Update the server
+#### Update the server
 
 Edit `greeter_server/main.go` and add the following function to it:
 
@@ -169,7 +167,7 @@ func (s *server) SayHelloAgain(ctx context.Context, in *pb.HelloRequest) (*pb.He
 }
 ```
 
-### Update the client
+#### Update the client
 
 Edit `greeter_client/main.go` to add the following code to the main function.
 
@@ -181,29 +179,29 @@ if err != nil {
 log.Printf("Greeting: %s", r.Message)
 ```
 
-### Run!
+#### Run!
 
 Run the server 
 
-```
+```sh
 $ go run greeter_server/main.go
 ```
 
 On a different terminal, run the client 
 
-```
+```sh
 $ go run greeter_client/main.go
 ```
 
 You should see the updated output:
 
-```
+```sh
 $ go run greeter_client/main.go
 Greeting: Hello world
 Greeting: Hello again world
 ```
 
-## What's next
+### What's next
 
 - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
   and [gRPC Concepts](/docs/guides/concepts/)

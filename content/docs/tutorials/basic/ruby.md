@@ -21,7 +21,7 @@ guide](https://developers.google.com/protocol-buffers/docs/proto3).
 
 <div id="toc"></div>
 
-## Why use gRPC?
+### Why use gRPC?
 
 Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -36,7 +36,7 @@ handled for you by gRPC. We also get all the advantages of working with protocol
 buffers, including efficient serialization, a simple IDL, and easy interface
 updating.
 
-## Example code and setup
+### Example code and setup
 
 The example code for our tutorial is in
 [grpc/grpc/examples/ruby/route_guide](https://github.com/grpc/grpc/tree/{{< param grpc_release_tag >}}/examples/ruby/route_guide).
@@ -58,7 +58,7 @@ You also should have the relevant tools installed to generate the server and
 client interface code - if you don't already, follow the setup instructions in
 [the Ruby quick start guide](/docs/quickstart/ruby/).
 
-## Defining the service
+### Defining the service
 
 Our first step (as you'll know from the [Overview](/docs/)) is to
 define the gRPC *service* and the method *request* and *response* types using
@@ -143,7 +143,7 @@ message Point {
 }
 ```
 
-## Generating client and server code
+### Generating client and server code
 
 Next we need to generate the gRPC client and server interfaces from our .proto
 service definition. We do this using the protocol buffer compiler `protoc` with
@@ -173,7 +173,7 @@ Running this command regenerates the following files in the lib directory:
 
 <a name="server"></a>
 
-## Creating the server
+### Creating the server
 
 First let's look at how we create a `RouteGuide` server. If you're only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -190,7 +190,7 @@ You can find our example `RouteGuide` server in
 [examples/ruby/route_guide/route_guide_server.rb](https://github.com/grpc/grpc/blob/{{< param grpc_release_tag >}}/examples/ruby/route_guide/route_guide_server.rb).
 Let's take a closer look at how it works.
 
-### Implementing RouteGuide
+#### Implementing RouteGuide
 
 As you can see, our server has a `ServerImpl` class that extends the generated
 `RouteGuide::Service`:
@@ -271,7 +271,7 @@ always get the other's messages in the order they were written, both the client
 and server can read and write in any order — the streams operate completely
 independently.
 
-### Starting the server
+#### Starting the server
 
 Once we've implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
@@ -297,13 +297,13 @@ this, we:
 
 <a name="client"></a>
 
-## Creating the client
+### Creating the client
 
 In this section, we'll look at creating a Ruby client for our `RouteGuide`
 service. You can see our complete example client code in
 [examples/ruby/route_guide/route_guide_client.rb](https://github.com/grpc/grpc/blob/{{< param grpc_release_tag >}}/examples/ruby/route_guide/route_guide_client.rb).
 
-### Creating a stub
+#### Creating a stub
 
 To call service methods, we first need to create a *stub*.
 
@@ -313,14 +313,14 @@ We use the `Stub` class of the `RouteGuide` module generated from our .proto.
 stub = RouteGuide::Stub.new('localhost:50051')
 ```
 
-### Calling service methods
+#### Calling service methods
 
 Now let's look at how we call our service methods. Note that the gRPC Ruby only
 provides  *blocking/synchronous* versions of each method: this means that the
 RPC call waits for the server to respond, and will either return a response or
 raise an exception.
 
-#### Simple RPC
+##### Simple RPC
 
 Calling the simple RPC `GetFeature` is nearly as straightforward as calling a
 local method.
@@ -345,7 +345,7 @@ request, and response. If the method returns `OK`, then we can read the response
 information from the server from our response object.
 
 
-#### Streaming RPCs
+##### Streaming RPCs
 
 Now let's look at our streaming methods. If you've already read [Creating the
 server](#server) some of this may look very familiar - streaming RPCs are
@@ -381,7 +381,7 @@ Although it's not shown well by this example, each enumerable is independent of
 the other - both the client and server can read and write in any order — the
 streams operate completely independently.
 
-## Try it out!
+### Try it out!
 
 Build client and server:
 

@@ -21,7 +21,7 @@ buffers language. You can find out more in the
 
 <div id="toc"></div>
 
-## Why use gRPC?
+### Why use gRPC?
 
 Our example is a simple route mapping application that lets clients get
 information about features on their route, create a summary of their route, and
@@ -36,7 +36,7 @@ handled for you by gRPC. We also get all the advantages of working with protocol
 buffers, including efficient serialization, a simple IDL, and easy interface
 updating.
 
-## Example code and setup
+### Example code and setup
 
 The example code for our tutorial is in
 [grpc/grpc/examples/node/dynamic&#95;codegen/route&#95;guide](https://github.com/grpc/grpc/tree/
@@ -73,7 +73,7 @@ client interface code - if you don't already, follow the setup instructions in
 [the Node.js quick start guide](/docs/quickstart/node/).
 
 
-## Defining the service
+### Defining the service
 
 Our first step (as you'll know from the [Overview](/docs/)) is to
 define the gRPC *service* and the method *request* and *response* types using
@@ -159,7 +159,7 @@ message Point {
 }
 ```
 
-## Loading service descriptors from proto files
+### Loading service descriptors from proto files
 
 The Node.js library dynamically generates service descriptors and client stub
 definitions from `.proto` files loaded at runtime.
@@ -192,7 +192,7 @@ used to create a server) is a property of the stub
 
 <a name="server"></a>
 
-## Creating the server
+### Creating the server
 
 First let's look at how we create a `RouteGuide` server. If you're only
 interested in creating gRPC clients, you can skip this section and go straight
@@ -210,7 +210,7 @@ You can find our example `RouteGuide` server in
 {{< param grpc_release_tag >}}/examples/node/dynamic_codegen/route_guide/route_guide_server.js).
 Let's take a closer look at how it works.
 
-### Implementing RouteGuide
+#### Implementing RouteGuide
 
 As you can see, our server has a `Server` constructor generated from the
 `RouteGuide.service` descriptor object
@@ -335,7 +335,7 @@ always get the other's messages in the order they were written, both the client
 and server can read and write in any order — the streams operate completely
 independently.
 
-### Starting the server
+#### Starting the server
 
 Once we've implemented all our methods, we also need to start up a gRPC server
 so that clients can actually use our service. The following snippet shows how we
@@ -369,14 +369,14 @@ As you can see, we build and start our server with the following steps:
 
 <a name="client"></a>
 
-## Creating the client
+### Creating the client
 
 In this section, we'll look at creating a Node.js client for our `RouteGuide`
 service. You can see our complete example client code in
 [examples/node/dynamic&#95;codegen/route&#95;guide/route&#95;guide&#95;client.js](https://github.com/grpc/grpc/blob/
 {{< param grpc_release_tag >}}/examples/node/dynamic_codegen/route_guide/route_guide_client.js).
 
-### Creating a stub
+#### Creating a stub
 
 To call service methods, we first need to create a *stub*. To do this, we just
 need to call the RouteGuide stub constructor, specifying the server address and
@@ -386,13 +386,13 @@ port.
 new routeguide.RouteGuide('localhost:50051', grpc.credentials.createInsecure());
 ```
 
-### Calling service methods
+#### Calling service methods
 
 Now let's look at how we call our service methods. Note that all of these
 methods are asynchronous: they use either events or callbacks to retrieve
 results.
 
-#### Simple RPC
+##### Simple RPC
 
 Calling the simple RPC `GetFeature` is nearly as straightforward as calling a
 local asynchronous method.
@@ -419,7 +419,7 @@ console.log('Found feature called "' + feature.name + '" at ' +
     feature.location.longitude/COORD_FACTOR);
 ```
 
-#### Streaming RPCs
+##### Streaming RPCs
 
 Now let's look at our streaming methods. If you've already read [Creating the
 server](#server) some of this may look very familiar - streaming RPCs are
@@ -509,7 +509,7 @@ get the other's messages in the order they were written, both the client and
 server can read and write in any order — the streams operate completely
 independently.
 
-## Try it out!
+### Try it out!
 
 Build client and server:
 

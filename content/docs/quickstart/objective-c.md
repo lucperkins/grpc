@@ -8,15 +8,15 @@ Objective-C with a simple working example.</p>
 
 <div id="toc"></div>
 
-## Before you begin
+### Before you begin
 
-### System requirement
+#### System requirement
 The minimum deployment iOS version for gRPC is 7.0.
 
 OS X El Capitan (version 10.11) or above is required to build and run this
 Quickstart.
 
-### Prerequisites
+#### Prerequisites
 
 * `CocoaPods`: version 1.0 or higher
 
@@ -48,7 +48,7 @@ Quickstart.
    brew install autoconf automake libtool pkg-config
    ```
 
-## Download the example
+### Download the example
 
 You'll need a local copy of the sample app source code to work through this
 Quickstart. Copy the source code from GitHub
@@ -58,20 +58,20 @@ Quickstart. Copy the source code from GitHub
 $ git clone --recursive -b {{< param grpc_release_tag >}} https://github.com/grpc/grpc.git
 ```
 
-## Install gRPC plugins and libraries
+### Install gRPC plugins and libraries
 ```sh
 $ cd grpc
 $ make
 $ [sudo] make install
 ```
 
-## Install protoc compiler
+### Install protoc compiler
 ```sh
 $ brew tap grpc/grpc
 $ brew install protobuf
 ```
 
-## Run the server
+### Run the server
 
 For this sample app, we need a gRPC server running on the local machine. gRPC
 Objective-C API supports creating gRPC clients but not gRPC servers. Therefore 
@@ -83,9 +83,9 @@ $ make
 $ ./greeter_server &
 ```
 
-## Run the client
+### Run the client
 
-### Generate client libraries and dependencies
+#### Generate client libraries and dependencies
 
 Have CocoaPods generate and install the client library from our .proto files, as
 well as installing several dependencies:
@@ -98,7 +98,7 @@ $ pod install
 (This might have to compile OpenSSL, which takes around 15 minutes if Cocoapods
 doesn't have it yet on your computer's cache.)
 
-### Run the client app
+#### Run the client app
 
 Open the Xcode workspace created by CocoaPods:
 
@@ -116,7 +116,7 @@ string "Hello Objective-C" that is then output to the console.
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using Protocol
@@ -171,12 +171,12 @@ message HelloReply {
 
 (Don't forget to save the file!)
 
-## Update the client and server
+### Update the client and server
 
 We now have a new gRPC service definition, but we still need to implement and
 call the new method in the human-written parts of our example application.
 
-### Update the server
+#### Update the server
 
 As you remember, gRPC doesn't provide a server API for Objective-C. Instead, we
 need to update the C++ sample server. Open
@@ -199,7 +199,7 @@ class GreeterServiceImpl final : public Greeter::Service {
 };
 ```
 
-### Update the client
+#### Update the client
 
 Edit `examples/objective-c/helloworld/main.m` to call the new method like this:
 
@@ -226,7 +226,7 @@ int main(int argc, char * argv[]) {
 }
 ```
 
-## Build and run
+### Build and run
 
 First terminate the server process already running in the background:
 ```sh
@@ -260,7 +260,7 @@ $ open HelloWorld.xcworkspace
 and run the client app. If you look at the console messages, you should see two RPC calls,
 one to SayHello and one to SayHelloAgain.
 
-## Troubleshooting
+### Troubleshooting
 
 **When installing CocoaPods, error prompt `activesupport requires Ruby version >= 2.2.2.`**
 
@@ -306,7 +306,7 @@ clone from GitHub, and build again.
 
 Run `brew install protobuf` to get `protoc` compiler.
 
-## What's next
+### What's next
 
 - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
   and [gRPC Concepts](/docs/guides/concepts/)

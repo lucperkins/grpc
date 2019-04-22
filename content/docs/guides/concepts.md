@@ -13,9 +13,9 @@ docs are coming soon).
 
 <div id="toc" class="toc mobile-toc"></div>
 
-## Overview
+### Overview
 
-### Service definition
+#### Service definition
 
 Like many RPC systems, gRPC is based around the idea of defining a service,
 specifying the methods that can be called remotely with their parameters and
@@ -86,7 +86,7 @@ rpc BidiHello(stream HelloRequest) returns (stream HelloResponse){
 
 We'll look at the different types of RPC in more detail in the RPC life cycle section below.
 
-### Using the API surface
+#### Using the API surface
 
 Starting from a service definition in a .proto file, gRPC provides protocol
 buffer compiler plugins that generate client- and server-side code. gRPC users
@@ -103,7 +103,7 @@ on the server side.
   message type - gRPC looks after sending the request(s) to the server and
   returning the server's protocol buffer response(s).
 
-### Synchronous vs. asynchronous
+#### Synchronous vs. asynchronous
 
 Synchronous RPC calls that block until a response arrives from the server are
 the closest approximation to the abstraction of a procedure call that RPC
@@ -115,13 +115,13 @@ The gRPC programming surface in most languages comes in both synchronous and
 asynchronous flavors. You can find out more in each language's tutorial and
 reference documentation (complete reference docs are coming soon).
 
-## RPC life cycle
+### RPC life cycle
 
 Now let's take a closer look at what happens when a gRPC client calls a gRPC
 server method. We won't look at implementation details, you can find out more
 about these in our language-specific pages.
 
-### Unary RPC
+#### Unary RPC
 
 First let's look at the simplest type of RPC, where the client sends a single request and gets back a single response.
 
@@ -139,7 +139,7 @@ First let's look at the simplest type of RPC, where the client sends a single re
 - If the status is OK, the client then gets the response, which completes the
   call on the client side.
 
-### Server streaming RPC
+#### Server streaming RPC
 
 A server-streaming RPC is similar to our simple example, except the server sends
 back a stream of responses after getting the client's request message. After
@@ -148,7 +148,7 @@ optional status message) and optional trailing metadata are sent back to
 complete on the server side. The client completes once it has all the server's
 responses.
 
-### Client streaming RPC
+#### Client streaming RPC
 
 A client-streaming RPC is also similar to our simple example, except the client
 sends a stream of requests to the server instead of a single request. The server
@@ -156,7 +156,7 @@ sends back a single response, typically but not necessarily after it has
 received all the client's requests, along with its status details and optional
 trailing metadata.
 
-### Bidirectional streaming RPC
+#### Bidirectional streaming RPC
 
 In a bidirectional streaming RPC, again the call is initiated by the client
 calling the method and the server receiving the client metadata, method name,
@@ -172,7 +172,7 @@ request based on the response, and so on.
 
 <a name="deadlines"></a>
 
-### Deadlines/Timeouts
+#### Deadlines/Timeouts
 
 gRPC allows clients to specify how long they are willing to wait for an RPC to
 complete before the RPC is terminated with the error `DEADLINE_EXCEEDED`. On
@@ -184,7 +184,7 @@ example, not all languages have a default deadline, some language APIs work in
 terms of a deadline (a fixed point in time), and some language APIs work in
 terms of timeouts (durations of time).
 
-### RPC termination
+#### RPC termination
 
 In gRPC, both the client and server make independent and local determinations of
 the success of the call, and their conclusions may not match. This means that,
@@ -193,7 +193,7 @@ for example, you could have an RPC that finishes successfully on the server side
 arrived after my deadline!"). It's also possible for a server to decide to
 complete before a client has sent all its requests.
 
-### Cancelling RPCs
+#### Cancelling RPCs
 
 Either the client or the server can cancel an RPC at any time. A cancellation
 terminates the RPC immediately so that no further work is done. It is *not* an
@@ -201,7 +201,7 @@ terminates the RPC immediately so that no further work is done. It is *not* an
 
 <a name="metadata"></a>
 
-### Metadata
+#### Metadata
 
 Metadata is information about a particular RPC call (such as <a href="/docs/guides/auth/">authentication details</a>) in the
 form of a list of key-value pairs, where the keys are strings and the values are
@@ -211,7 +211,7 @@ and vice versa.
 
 Access to metadata is language-dependent.
 
-### Channels
+#### Channels
 
 A gRPC channel provides a connection to a gRPC server on a specified host and
 port and is used when creating a client stub (or just "client" in some

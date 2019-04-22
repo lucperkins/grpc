@@ -43,7 +43,7 @@ It must be in your $PATH for the protocol compiler, protoc, to find it.
 $ export PATH=$PATH:$HOME/.pub-cache/bin
 ```
 
-## Download the example
+### Download the example
 
 You'll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -57,7 +57,7 @@ $ # Navigate to the "Hello World" Dart example:
 $ cd grpc-dart/example/helloworld
 ```
 
-## Run a gRPC application
+### Run a gRPC application
 
 From the `example/helloworld` directory:
 
@@ -81,7 +81,7 @@ From the `example/helloworld` directory:
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -135,7 +135,7 @@ message HelloReply {
 
 (Don't forget to save the file!)
 
-## Generate gRPC code
+### Generate gRPC code
 
 Next we need to update the gRPC code used by our application to use the new
 service definition.
@@ -149,12 +149,12 @@ $ protoc --dart_out=grpc:lib/src/generated -Iprotos protos/helloworld.proto
 This regenerates the files in `lib/src/generated` which contain our generated
 request and response classes, and client and server classes.
 
-## Update and run the application
+### Update and run the application
 
 We now have new generated server and client code, but we still need to implement
 and call the new method in the human-written parts of our example application.
 
-### Update the server
+#### Update the server
 
 In the same directory, open `bin/server.dart`. Implement the new method like
 this:
@@ -175,7 +175,7 @@ class GreeterService extends GreeterServiceBase {
 ...
 ```
 
-### Update the client
+#### Update the client
 
 In the same directory, open `bin/client.dart`. Call the new method like this:
 
@@ -201,7 +201,7 @@ Future<Null> main(List<String> args) async {
 }
 ```
 
-### Run!
+#### Run!
 
 Just like we did before, from the `example/helloworld` directory:
 
@@ -217,14 +217,14 @@ Just like we did before, from the `example/helloworld` directory:
    $ dart bin/client.dart
    ```
 
-## What's next
+### What's next
 
 - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
   and [gRPC Concepts](/docs/guides/concepts/)
 - Work through a more detailed tutorial in [gRPC Basics: Dart](/docs/tutorials/basic/dart/)
 
 
-## Reporting issues
+### Reporting issues
 Should you encounter an issue, please help us out by
 <a href="https://github.com/grpc/grpc-dart/issues/new">filing issues</a>
 in our issue tracker.</p>

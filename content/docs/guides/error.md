@@ -7,7 +7,7 @@ aliases: [/docs/guides/error.html]
 
 <div id="toc" class="toc mobile-toc"></div>
 
-## Error model
+### Error model
 
 As you'll have seen in our concepts document and examples, when a gRPC call
 completes successfully the server returns an `OK` status to the client
@@ -18,14 +18,14 @@ If an error occurs, gRPC returns one of its error status codes instead, with an
 optional string error message that provides further details about what happened.
 Error information is available to gRPC clients in all supported languages.
 
-## Error status codes
+### Error status codes
 
 Errors are raised by gRPC under various circumstances, from network failures to
 unauthenticated connections, each of which is associated with a particular
 status code. The following error status codes are supported in all gRPC
 languages.
 
-### General errors
+#### General errors
 
 Case | Status code
 -----|-----------
@@ -36,7 +36,7 @@ Server shutting down | GRPC&#95;STATUS&#95;UNAVAILABLE
 Server threw an exception (or did something other than returning a status code to terminate the RPC) | GRPC&#95;STATUS&#95;UNKNOWN
 <br>
 
-### Network failures
+#### Network failures
 
 Case | Status code
 -----|-----------
@@ -44,7 +44,7 @@ No data transmitted before deadline expires. Also applies to cases where some da
 Some data transmitted (for example, the request metadata has been written to the TCP connection) before the connection breaks | GRPC&#95;STATUS&#95;UNAVAILABLE
 <br>
 
-### Protocol errors
+#### Protocol errors
 
 Case | Status code
 -----|-----------

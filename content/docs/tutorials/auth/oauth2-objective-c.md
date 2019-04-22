@@ -24,7 +24,7 @@ token_.
 
 <a name="setup"></a>
 
-## Example code and setup
+### Example code and setup
 
 The example code for our tutorial is in
 [gprc/examples/objective-c/auth_sample](https://github.com/grpc/grpc/tree/
@@ -67,7 +67,7 @@ following [these setup instructions](https://github.com/grpc/homebrew-grpc).
 
 <a name="try"></a>
 
-## Try it out!
+### Try it out!
 
 To try the sample app, first have Cocoapods generate and install the client library for our .proto
 files:
@@ -105,7 +105,7 @@ The next sections guide you step-by-step through how the gRPC call in
 
 <a name="rpc-object"></a>
 
-## Create an RPC object
+### Create an RPC object
 
 The other basic tutorials show how to invoke an RPC by calling an asynchronous
 method in a generated client object. However, to make an authenticated call you
@@ -150,7 +150,7 @@ You can start the RPC represented by this object at any later time like this:
 ```
 <a name="request-metadata"></a>
 
-## Setting request metadata: Auth header with an access token
+### Setting request metadata: Auth header with an access token
 
 Now let's look at how to configure some settings on the RPC object. The
 `ProtoRPC` class has a `requestHeaders` property (inherited from `GRPCCall`)
@@ -184,7 +184,7 @@ call.requestHeaders[@"Authorization"] = [@"Bearer " stringByAppendingString:acce
 
 <a name="response-metadata"></a>
 
-## Getting response metadata: Auth challenge header
+### Getting response metadata: Auth challenge header
 
 The `ProtoRPC` class also inherits a pair of properties, `responseHeaders` and
 `responseTrailers`, analogous to the request metadata we just looked at but sent

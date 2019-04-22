@@ -20,7 +20,7 @@ buffers](https://developers.google.com/protocol-buffers/docs/overview).
 
 <a name="why-grpc"></a>
 
-## Why use gRPC and gRPC-Web?
+### Why use gRPC and gRPC-Web?
 
 With gRPC you can define your service once in a .proto file and implement
 clients and servers in any of gRPC's supported languages, which in turn can be
@@ -34,7 +34,7 @@ from browsers using an idiomatic API.
 
 <a name="setup"></a>
 
-## Define the Service
+### Define the Service
 
 The first step when creating a gRPC service is to define the service methods
 and their request and response message types using protocol buffers. In this
@@ -57,7 +57,7 @@ service EchoService {
 }
 ```
 
-## Implement gRPC Backend Server
+### Implement gRPC Backend Server
 
 Next, we implement our EchoService interface using Node in the backend gRPC
 `EchoServer`. This will handle requests from clients. See the file
@@ -74,7 +74,7 @@ function doEcho(call, callback) {
 ```
 
 
-## Configure the Envoy Proxy
+### Configure the Envoy Proxy
 
 In this example, we will use the [Envoy](https://www.envoyproxy.io/)
 proxy to forward the gRPC browser request to the backend server. You can see
@@ -124,7 +124,7 @@ forwards the request to the backend gRPC server listening on port `:9090`.
 
 
 
-## Generate Protobuf Messages and Service Client Stub
+### Generate Protobuf Messages and Service Client Stub
 
 
 To generate the protobuf message classes from our `echo.proto`, run the
@@ -163,7 +163,7 @@ Our command generates the client stub, by default, to the file
 `echo_grpc_web_pb.js`.
 
 
-## Write JS Client Code
+### Write JS Client Code
 
 Now you are ready to write some JS client code. Put this in a `client.js` file.
 
@@ -198,7 +198,7 @@ You will need a `package.json` file
 }
 ```
 
-## Compile the JS Library
+### Compile the JS Library
 
 
 Finally, putting all these together, we can compile all the relevant JS files

@@ -9,19 +9,19 @@ working example.</p>
 
 <div id="toc"></div>
 
-## Before you begin
+### Before you begin
 
-### Prerequisites
+#### Prerequisites
 
  * `ruby`: version 2 or higher
 
-### Install gRPC
+#### Install gRPC
 
 ```
 $ gem install grpc
 ```
 
-### Install gRPC tools
+#### Install gRPC tools
 
 Ruby's gRPC tools include the protocol buffer compiler `protoc` and the special
 plugin for generating server and client code from the `.proto` service
@@ -37,7 +37,7 @@ To install gRPC tools, run:
 gem install grpc-tools
 ```
 
-## Download the example
+### Download the example
 
 You'll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -51,7 +51,7 @@ $ # Navigate to the "hello, world" Ruby example:
 $ cd grpc/examples/ruby
 ```
 
-## Run a gRPC application
+### Run a gRPC application
 
 From the `examples/ruby` directory:
 
@@ -69,7 +69,7 @@ From the `examples/ruby` directory:
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -124,7 +124,7 @@ message HelloReply {
 
 (Don't forget to save the file!)
 
-## Generate gRPC code
+### Generate gRPC code
 
 Next we need to update the gRPC code used by our application to use the new
 service definition. From the `examples/ruby/` directory:
@@ -136,7 +136,7 @@ $ grpc_tools_ruby_protoc -I ../protos --ruby_out=lib --grpc_out=lib ../protos/he
 This regenerates `lib/helloworld_services_pb.rb`, which contains our generated
 client and server classes.
 
-### Update the server
+#### Update the server
 
 In the same directory, open `greeter_server.rb`. Implement the new method like this
 
@@ -154,7 +154,7 @@ end
 ...
 ```
 
-### Update the client
+#### Update the client
 
 In the same directory, open `greeter_client.rb`. Call the new method like this:
 
@@ -169,7 +169,7 @@ def main
 end
 ```
 
-### Run!
+#### Run!
 
 Just like we did before, from the `examples/ruby` directory:
 
@@ -185,7 +185,7 @@ Just like we did before, from the `examples/ruby` directory:
    $ ruby greeter_client.rb
    ```
 
-## What's next
+### What's next
 
  - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
    and [gRPC Concepts](/docs/guides/concepts/)

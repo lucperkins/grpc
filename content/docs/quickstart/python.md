@@ -8,9 +8,9 @@ working example.</p>
 
 <div id="toc"></div>
 
-## Before you begin
+### Before you begin
 
-### Prerequisites
+#### Prerequisites
 
 gRPC Python is supported for use with Python 2.7 or Python 3.4 or higher.
 
@@ -30,7 +30,7 @@ $ source venv/bin/activate
 $ python -m pip install --upgrade pip
 ```
 
-### Install gRPC
+#### Install gRPC
 
 Install gRPC:
 
@@ -56,7 +56,7 @@ You can work around this using:
 $ python -m pip install grpcio --ignore-installed
 ```
 
-### Install gRPC tools
+#### Install gRPC tools
 
 Python's gRPC tools include the protocol buffer compiler `protoc` and the
 special plugin for generating server and client code from `.proto` service
@@ -72,7 +72,7 @@ To install gRPC tools, run:
 $ python -m pip install grpcio-tools
 ```
 
-## Download the example
+### Download the example
 
 You'll need a local copy of the example code to work through this quickstart.
 Download the example code from our GitHub repository (the following command
@@ -86,7 +86,7 @@ $ # Navigate to the "hello, world" Python example:
 $ cd grpc/examples/python/helloworld
 ```
 
-## Run a gRPC application
+### Run a gRPC application
 
 From the `examples/python/helloworld` directory:
 
@@ -104,7 +104,7 @@ From the `examples/python/helloworld` directory:
 
 Congratulations! You've just run a client-server application with gRPC.
 
-## Update a gRPC service
+### Update a gRPC service
 
 Now let's look at how to update the application with an extra method on the
 server for the client to call. Our gRPC service is defined using protocol
@@ -159,7 +159,7 @@ message HelloReply {
 
 (Don't forget to save the file!)
 
-## Generate gRPC code
+### Generate gRPC code
 
 Next we need to update the gRPC code used by our application to use the new
 service definition. 
@@ -174,12 +174,12 @@ This regenerates `helloworld_pb2.py` which contains our generated request and
 response classes and `helloworld_pb2_grpc.py` which contains our generated
 client and server classes.
 
-## Update and run the application
+### Update and run the application
 
 We now have new generated server and client code, but we still need to implement
 and call the new method in the human-written parts of our example application.
 
-### Update the server
+#### Update the server
 
 In the same directory, open `greeter_server.py`. Implement the new method like
 this:
@@ -195,7 +195,7 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
 ...
 ```
 
-### Update the client
+#### Update the client
 
 In the same directory, open `greeter_client.py`. Call the new method like this:
 
@@ -209,7 +209,7 @@ def run():
   print("Greeter client received: " + response.message)
 ```
 
-### Run!
+#### Run!
 
 Just like we did before, from the `examples/python/helloworld` directory:
 
@@ -225,7 +225,7 @@ Just like we did before, from the `examples/python/helloworld` directory:
    $ python greeter_client.py
    ```
 
-## What's next
+### What's next
 
 - Read a full explanation of how gRPC works in [What is gRPC?](/docs/guides/)
   and [gRPC Concepts](/docs/guides/concepts/)
